@@ -1,9 +1,5 @@
 # The Raw Rust Bindings for libkcapi
 
-![CI Badge](https://github.com/puru1761/libkcapi-sys/actions/workflows/main.yml/badge.svg)
-![License Badge](https://img.shields.io/github/license/puru1761/kcapi-sys)
-![Crate Badge](https://img.shields.io/crates/v/kcapi-sys.svg)
-
 This repository contains the official raw low-level bindings for
 [libkcapi](https://github.com/smuellerDD/libkcapi/). *DO NOT* use these
 bindings directly in your project. Instead, a safe Rusty API will be provided
@@ -15,7 +11,7 @@ Prior to building this project, clone this repository, and also checkout
 all it's included submodules recursively.
 
 ```
-git clone https://github.com/puru1761/kcapi-sys.git --recurse-submodules
+git clone https://github.com/SunFulong/kcapi-sys.git --recurse-submodules
 ```
 
 Install all build dependencies. These are:
@@ -64,7 +60,7 @@ To build this crate with the locally installed version of `libkcapi`, you can
 use the `local-kcapi` feature. In your Cargo.toml:
 
 ```
-kcapi-sys = { version = "1.4.0", default-features = false, features = ["local-kcapi"] }
+kcapi-sys = { version = "1.5.0", default-features = false, features = ["local-kcapi"] }
 ```
 
 *NOTE:* This has been tested only with `libkcapi v1.4.0` and is not guaranteed
@@ -82,3 +78,4 @@ cargo test
 ## Author
 
 * Purushottam A. Kulkarni <<puruk@protonmail.com>>
+* Fulong Sun <<fuklung@qq.com>>
