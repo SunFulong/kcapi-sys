@@ -92,7 +92,7 @@ fn build_vendored() {
 
     let bindings = bindgen::Builder::default()
         .header(format!("{}", wrapper_h_path.display()))
-        .parse_callbacks(Box::new(bindgen::CargoCallbacks))
+        .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
         .generate()
         .unwrap_or_else(|_| panic!("unable to generate bindings for lib{}", LIB));
 
@@ -115,7 +115,7 @@ fn build_local() {
 
     let bindings = bindgen::Builder::default()
         .header(format!("{}", wrapper))
-        .parse_callbacks(Box::new(bindgen::CargoCallbacks))
+        .parse_callbacks(Box::new(bindgen::CargoCallbacks::new()))
         .generate()
         .unwrap_or_else(|_| panic!("unable to generate bindings for lib{}", LIB));
 

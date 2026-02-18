@@ -73,7 +73,7 @@ mod tests {
             0x11, 0x47, 0x6,
         ];
 
-        let mut ret: i64;
+        let mut ret: isize;
         unsafe {
             let mut handle =
                 Box::into_raw(Box::new(kcapi_handle { _unused: [0u8; 0] })) as *mut kcapi_handle;
@@ -86,16 +86,16 @@ mod tests {
             ret = (kcapi_md_digestsize(handle))
                 .try_into()
                 .expect("Failed to convert i32 into i64");
-            assert_eq!(ret, SIZE_SHA256 as i64);
+            assert_eq!(ret, SIZE_SHA256 as isize);
 
             ret = kcapi_md_digest(
                 handle,
                 inp.as_ptr(),
-                inp.len() as u64,
+                inp.len(),
                 out.as_mut_ptr(),
-                out.len() as u64,
+                out.len(),
             );
-            assert_eq!(ret, SIZE_SHA256 as i64);
+            assert_eq!(ret, SIZE_SHA256 as isize);
         }
         assert_eq!(out_exp, out);
     }
@@ -112,7 +112,7 @@ mod tests {
             0xa2, 0x99, 0xd,
         ];
 
-        let mut ret: i64;
+        let mut ret: isize;
         unsafe {
             let mut handle =
                 Box::into_raw(Box::new(kcapi_handle { _unused: [0u8; 0] })) as *mut kcapi_handle;
@@ -125,7 +125,7 @@ mod tests {
             ret = (kcapi_md_digestsize(handle))
                 .try_into()
                 .expect("Failed to convert i32 into i64");
-            assert_eq!(ret, SIZE_SHA256 as i64);
+            assert_eq!(ret, SIZE_SHA256 as isize);
 
             ret = (kcapi_md_setkey(handle, key.as_ptr(), key.len() as u32))
                 .try_into()
@@ -135,11 +135,11 @@ mod tests {
             ret = kcapi_md_digest(
                 handle,
                 inp.as_ptr(),
-                inp.len() as u64,
+                inp.len(),
                 out.as_mut_ptr(),
-                out.len() as u64,
+                out.len(),
             );
-            assert_eq!(ret, SIZE_SHA256 as i64);
+            assert_eq!(ret, SIZE_SHA256 as isize);
         }
         assert_eq!(out_exp, out);
     }
@@ -153,18 +153,18 @@ mod tests {
             0x6d, 0xbc, 0x18, 0x6f, 0x20,
         ];
 
-        let ret: i64;
+        let ret: isize;
         unsafe {
             ret = kcapi_md_sha1(
                 inp.as_ptr(),
-                (inp.len() as u32).into(),
+                inp.len(),
                 out.as_ptr() as *mut u8,
-                (out.len() as u32).into(),
+                out.len(),
             );
         }
 
         assert_eq!(out_exp, out);
-        assert_eq!(ret, SIZE_SHA1 as i64);
+        assert_eq!(ret, SIZE_SHA1 as isize);
     }
 
     #[test]
@@ -176,18 +176,18 @@ mod tests {
             0xed, 0x82, 0xba, 0x8, 0xd2, 0xbb, 0x5a, 0xee, 0x2c, 0x37, 0x40, 0xe7, 0xff, 0x8a,
         ];
 
-        let ret: i64;
+        let ret: isize;
         unsafe {
             ret = kcapi_md_sha224(
                 inp.as_ptr(),
-                (inp.len() as u32).into(),
+                inp.len(),
                 out.as_ptr() as *mut u8,
-                (out.len() as u32).into(),
+                out.len(),
             );
         }
 
         assert_eq!(out_exp, out);
-        assert_eq!(ret, SIZE_SHA224 as i64);
+        assert_eq!(ret, SIZE_SHA224 as isize);
     }
 
     #[test]
@@ -200,18 +200,18 @@ mod tests {
             0x11, 0x47, 0x6,
         ];
 
-        let ret: i64;
+        let ret: isize;
         unsafe {
             ret = kcapi_md_sha256(
                 inp.as_ptr(),
-                (inp.len() as u32).into(),
+                inp.len(),
                 out.as_ptr() as *mut u8,
-                (out.len() as u32).into(),
+                out.len(),
             );
         }
 
         assert_eq!(out_exp, out);
-        assert_eq!(ret, SIZE_SHA256 as i64);
+        assert_eq!(ret, SIZE_SHA256 as isize);
     }
 
     #[test]
@@ -224,18 +224,18 @@ mod tests {
             0xf, 0xe0, 0x5a, 0xb1, 0x21, 0x97, 0xf9, 0xca, 0xc2, 0x53, 0x74, 0x9a, 0x5f, 0xde, 0x8,
             0x22, 0xc7, 0x34,
         ];
-        let ret: i64;
+        let ret: isize;
         unsafe {
             ret = kcapi_md_sha384(
                 inp.as_ptr(),
-                (inp.len() as u32).into(),
+                inp.len(),
                 out.as_ptr() as *mut u8,
-                (out.len() as u32).into(),
+                out.len(),
             );
         }
 
         assert_eq!(out_exp, out);
-        assert_eq!(ret, SIZE_SHA384 as i64);
+        assert_eq!(ret, SIZE_SHA384 as isize);
     }
 
     #[test]
@@ -250,18 +250,18 @@ mod tests {
             0x36, 0x46, 0xbc, 0xbc, 0x11, 0x98, 0xce,
         ];
 
-        let ret: i64;
+        let ret: isize;
         unsafe {
             ret = kcapi_md_sha512(
                 inp.as_ptr(),
-                (inp.len() as u32).into(),
+                inp.len(),
                 out.as_ptr() as *mut u8,
-                (out.len() as u32).into(),
+                out.len(),
             );
         }
 
         assert_eq!(out_exp, out);
-        assert_eq!(ret, SIZE_SHA512 as i64);
+        assert_eq!(ret, SIZE_SHA512 as isize);
     }
 
     #[test]
@@ -274,20 +274,20 @@ mod tests {
             0x61, 0x18, 0xd4, 0xfe, 0xe0, 0xd6,
         ];
 
-        let ret: i64;
+        let ret: isize;
         unsafe {
             ret = kcapi_md_hmac_sha1(
                 key.as_ptr(),
                 key.len() as u32,
                 inp.as_ptr(),
-                (inp.len() as u32).into(),
+                inp.len(),
                 out.as_ptr() as *mut u8,
-                (out.len() as u32).into(),
+                out.len(),
             );
         }
 
         assert_eq!(out_exp, out);
-        assert_eq!(ret, SIZE_SHA1 as i64);
+        assert_eq!(ret, SIZE_SHA1 as isize);
     }
 
     #[test]
@@ -300,20 +300,20 @@ mod tests {
             0x96, 0x36, 0xde, 0x33, 0x11, 0x5f, 0xb1, 0x3e, 0xa5, 0x75, 0x8c, 0xfc, 0xdc, 0x6,
         ];
 
-        let ret: i64;
+        let ret: isize;
         unsafe {
             ret = kcapi_md_hmac_sha224(
                 key.as_ptr(),
                 key.len() as u32,
                 inp.as_ptr(),
-                (inp.len() as u32).into(),
+                inp.len(),
                 out.as_ptr() as *mut u8,
-                (out.len() as u32).into(),
+                out.len(),
             );
         }
 
         assert_eq!(out_exp, out);
-        assert_eq!(ret, SIZE_SHA224 as i64);
+        assert_eq!(ret, SIZE_SHA224 as isize);
     }
 
     #[test]
@@ -327,20 +327,20 @@ mod tests {
             0xa2, 0x99, 0xd,
         ];
 
-        let ret: i64;
+        let ret: isize;
         unsafe {
             ret = kcapi_md_hmac_sha256(
                 key.as_ptr(),
                 key.len() as u32,
                 inp.as_ptr(),
-                (inp.len() as u32).into(),
+                inp.len(),
                 out.as_ptr() as *mut u8,
-                (out.len() as u32).into(),
+                out.len(),
             );
         }
 
         assert_eq!(out_exp, out);
-        assert_eq!(ret, SIZE_SHA256 as i64);
+        assert_eq!(ret, SIZE_SHA256 as isize);
     }
 
     #[test]
@@ -355,20 +355,20 @@ mod tests {
             0xdd, 0x27, 0x75, 0xc8,
         ];
 
-        let ret: i64;
+        let ret: isize;
         unsafe {
             ret = kcapi_md_hmac_sha384(
                 key.as_ptr(),
                 key.len() as u32,
                 inp.as_ptr(),
-                (inp.len() as u32).into(),
+                inp.len(),
                 out.as_ptr() as *mut u8,
-                (out.len() as u32).into(),
+                out.len(),
             );
         }
 
         assert_eq!(out_exp, out);
-        assert_eq!(ret, SIZE_SHA384 as i64);
+        assert_eq!(ret, SIZE_SHA384 as isize);
     }
 
     #[test]
@@ -384,19 +384,19 @@ mod tests {
             0xab, 0xb6, 0x54, 0xf4, 0xe9, 0xd, 0x48,
         ];
 
-        let ret: i64;
+        let ret: isize;
         unsafe {
             ret = kcapi_md_hmac_sha512(
                 key.as_ptr(),
                 key.len() as u32,
                 inp.as_ptr(),
-                (inp.len() as u32).into(),
+                inp.len(),
                 out.as_ptr() as *mut u8,
-                (out.len() as u32).into(),
+                out.len(),
             );
         }
 
         assert_eq!(out_exp, out);
-        assert_eq!(ret, SIZE_SHA512 as i64);
+        assert_eq!(ret, SIZE_SHA512 as isize);
     }
 }

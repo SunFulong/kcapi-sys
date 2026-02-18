@@ -182,13 +182,13 @@ pub mod tests {
             let ret64 = crate::kcapi_akcipher_encrypt(
                 handle,
                 inp.as_ptr(),
-                inp.len() as crate::size_t,
+                inp.len(),
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
                 crate::KCAPI_ACCESS_HEURISTIC as ::std::os::raw::c_int,
             );
             assert_eq!(out, ct);
-            assert_eq!(ret64, ct.len() as i64);
+            assert_eq!(ret64, ct.len() as isize);
         }
     }
 
@@ -213,15 +213,15 @@ pub mod tests {
             let ret64 = crate::kcapi_akcipher_decrypt(
                 handle,
                 inp.as_ptr(),
-                inp.len() as crate::size_t,
+                inp.len(),
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
                 crate::KCAPI_ACCESS_HEURISTIC as ::std::os::raw::c_int,
             );
             let mut pt_out = vec![0u8; pt.len()];
             pt_out.clone_from_slice(&out[out.len() - pt.len()..]);
             assert_eq!(pt_out, pt);
-            assert_eq!(ret64, ct.len() as i64);
+            assert_eq!(ret64, ct.len() as isize);
         }
     }
 
@@ -241,11 +241,11 @@ pub mod tests {
             let mut hash = [0u8; 32];
             let mut ret64 = crate::kcapi_md_sha256(
                 pt.as_ptr(),
-                pt.len() as crate::size_t,
+                pt.len(),
                 hash.as_mut_ptr(),
-                hash.len() as crate::size_t,
+                hash.len(),
             );
-            assert_eq!(hash.len(), ret64 as usize);
+            assert_eq!(hash.len() as isize, ret64);
 
             ret = crate::kcapi_akcipher_setkey(handle, privkey.as_ptr(), privkey.len() as u32);
             assert_eq!(ret, 256);
@@ -254,13 +254,13 @@ pub mod tests {
             ret64 = crate::kcapi_akcipher_sign(
                 handle,
                 hash.as_ptr(),
-                hash.len() as crate::size_t,
+                hash.len(),
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
                 crate::KCAPI_ACCESS_HEURISTIC as ::std::os::raw::c_int,
             );
             assert_eq!(sig, out);
-            assert_eq!(out.len(), ret64 as usize);
+            assert_eq!(out.len() as isize, ret64);
         }
     }
 
@@ -280,11 +280,11 @@ pub mod tests {
             let mut hash = [0u8; 32];
             let mut ret64 = crate::kcapi_md_sha256(
                 pt.as_ptr(),
-                pt.len() as crate::size_t,
+                pt.len(),
                 hash.as_mut_ptr(),
-                hash.len() as crate::size_t,
+                hash.len(),
             );
-            assert_eq!(hash.len(), ret64 as usize);
+            assert_eq!(hash.len() as isize, ret64);
 
             ret = crate::kcapi_akcipher_setpubkey(handle, pubkey.as_ptr(), pubkey.len() as u32);
             assert_eq!(ret, 256);
@@ -297,9 +297,9 @@ pub mod tests {
             ret64 = crate::kcapi_akcipher_verify(
                 handle,
                 inp.as_ptr(),
-                inp.len() as crate::size_t,
+                inp.len(),
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
                 crate::KCAPI_ACCESS_HEURISTIC as ::std::os::raw::c_int,
             );
             assert_eq!(ret64, 0);
@@ -322,11 +322,11 @@ pub mod tests {
             let mut hash = [0u8; 32];
             let mut ret64 = crate::kcapi_md_sha256(
                 pt.as_ptr(),
-                pt.len() as crate::size_t,
+                pt.len(),
                 hash.as_mut_ptr(),
-                hash.len() as crate::size_t,
+                hash.len(),
             );
-            assert_eq!(hash.len(), ret64 as usize);
+            assert_eq!(hash.len() as isize, ret64);
 
             ret = crate::kcapi_akcipher_setpubkey(handle, pubkey.as_ptr(), pubkey.len() as u32);
             assert_eq!(ret, 256);
@@ -340,9 +340,9 @@ pub mod tests {
             ret64 = crate::kcapi_akcipher_verify(
                 handle,
                 inp.as_ptr(),
-                inp.len() as crate::size_t,
+                inp.len(),
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
                 crate::KCAPI_ACCESS_HEURISTIC as ::std::os::raw::c_int,
             );
             assert!(ret64 < 0);
@@ -365,11 +365,11 @@ pub mod tests {
             let mut hash = [0u8; 32];
             let mut ret64 = crate::kcapi_md_sha256(
                 pt.as_ptr(),
-                pt.len() as crate::size_t,
+                pt.len(),
                 hash.as_mut_ptr(),
-                hash.len() as crate::size_t,
+                hash.len(),
             );
-            assert_eq!(hash.len(), ret64 as usize);
+            assert_eq!(hash.len() as isize, ret64);
 
             ret = crate::kcapi_akcipher_setpubkey(handle, pubkey.as_ptr(), pubkey.len() as u32);
             assert_eq!(ret, 256);
@@ -384,9 +384,9 @@ pub mod tests {
             ret64 = crate::kcapi_akcipher_verify(
                 handle,
                 inp.as_ptr(),
-                inp.len() as crate::size_t,
+                inp.len(),
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
                 crate::KCAPI_ACCESS_HEURISTIC as ::std::os::raw::c_int,
             );
             assert!(ret64 < 0);
@@ -409,11 +409,11 @@ pub mod tests {
             let mut hash = [0u8; 32];
             let mut ret64 = crate::kcapi_md_sha256(
                 pt.as_ptr(),
-                pt.len() as crate::size_t,
+                pt.len(),
                 hash.as_mut_ptr(),
-                hash.len() as crate::size_t,
+                hash.len(),
             );
-            assert_eq!(hash.len(), ret64 as usize);
+            assert_eq!(hash.len() as isize, ret64);
 
             let mut pubkey_corrupt = pubkey.clone();
             pubkey_corrupt[pubkey.len() - pubkey.len() / 2] ^= 0x01;
@@ -432,9 +432,9 @@ pub mod tests {
             ret64 = crate::kcapi_akcipher_verify(
                 handle,
                 inp.as_ptr(),
-                inp.len() as crate::size_t,
+                inp.len(),
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
                 crate::KCAPI_ACCESS_HEURISTIC as ::std::os::raw::c_int,
             );
             assert!(ret64 < 0);

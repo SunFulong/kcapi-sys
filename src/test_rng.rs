@@ -47,7 +47,7 @@ mod tests {
         let mut out = [0u8; 16];
         let alg = CString::new("drbg_nopr_sha1").expect("Unable to create CString");
 
-        let mut ret: i64;
+        let mut ret: isize;
         unsafe {
             let mut handle =
                 Box::into_raw(Box::new(kcapi_handle { _unused: [0u8; 0] })) as *mut kcapi_handle;
@@ -62,8 +62,8 @@ mod tests {
                 .expect("Failed to convert i32 to i64");
             assert_eq!(ret, 0);
 
-            ret = kcapi_rng_generate(handle, out.as_mut_ptr(), out.len() as u64);
-            assert_eq!(ret, out.len() as i64);
+            ret = kcapi_rng_generate(handle, out.as_mut_ptr(), out.len());
+            assert_eq!(ret, out.len() as isize);
 
             kcapi_rng_destroy(handle);
         }
@@ -74,13 +74,13 @@ mod tests {
         let mut out = [0u8; 16];
         let mut out_next = [0u8; 16];
 
-        let mut ret: i64;
+        let mut ret: isize;
         unsafe {
-            ret = kcapi_rng_get_bytes(out.as_mut_ptr(), out.len() as u64);
-            assert_eq!(ret, out.len() as i64);
+            ret = kcapi_rng_get_bytes(out.as_mut_ptr(), out.len());
+            assert_eq!(ret, out.len() as isize);
 
-            ret = kcapi_rng_get_bytes(out_next.as_mut_ptr(), out_next.len() as u64);
-            assert_eq!(ret, out_next.len() as i64);
+            ret = kcapi_rng_get_bytes(out_next.as_mut_ptr(), out_next.len());
+            assert_eq!(ret, out_next.len() as isize);
 
             assert_ne!(out, out_next);
         }
@@ -94,7 +94,7 @@ mod tests {
         let mut out = [0u8; 16];
         let alg = CString::new("drbg_nopr_sha1").expect("Unable to create CString");
 
-        let mut ret: i64;
+        let mut ret: isize;
         unsafe {
             let mut handle =
                 Box::into_raw(Box::new(kcapi_handle { _unused: [0u8; 0] })) as *mut kcapi_handle;
@@ -131,7 +131,7 @@ mod tests {
         ];
         let alg = CString::new("drbg_nopr_sha1").expect("Unable to create CString");
 
-        let mut ret: i64;
+        let mut ret: isize;
         unsafe {
             let mut handle =
                 Box::into_raw(Box::new(kcapi_handle { _unused: [0u8; 0] })) as *mut kcapi_handle;

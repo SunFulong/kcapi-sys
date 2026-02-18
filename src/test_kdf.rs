@@ -72,9 +72,9 @@ mod tests {
             let ret = crate::kcapi_kdf_ctr(
                 handle,
                 CTR_KDF_MSG.as_ptr(),
-                CTR_KDF_MSG.len() as crate::size_t,
+                CTR_KDF_MSG.len(),
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
             );
             assert_eq!(ret, 0);
             assert_eq!(CTR_KDF_EXP, out);
@@ -121,9 +121,9 @@ mod tests {
             let ret = crate::kcapi_kdf_fb(
                 handle,
                 FB_KDF_MSG.as_ptr(),
-                FB_KDF_MSG.len() as crate::size_t,
+                FB_KDF_MSG.len(),
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
             );
             assert_eq!(ret, 0);
             assert_eq!(FB_KDF_EXP, out);
@@ -168,9 +168,9 @@ mod tests {
             let ret = crate::kcapi_kdf_dpi(
                 handle,
                 DPI_KDF_MSG.as_ptr(),
-                DPI_KDF_MSG.len() as crate::size_t,
+                DPI_KDF_MSG.len(),
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
             );
             assert_eq!(ret, 0);
             assert_eq!(DPI_KDF_EXP, out);
@@ -203,13 +203,13 @@ mod tests {
             let ret = crate::kcapi_hkdf(
                 alg.as_ptr(),
                 HKDF_IKM.as_ptr(),
-                HKDF_IKM.len() as crate::size_t,
+                HKDF_IKM.len(),
                 HKDF_SALT.as_ptr(),
                 HKDF_SALT.len() as u32,
                 HKDF_INFO.as_ptr(),
-                HKDF_INFO.len() as crate::size_t,
+                HKDF_INFO.len(),
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
             );
             assert_eq!(ret, 0);
             assert_eq!(out, HKDF_OUT_EXP);
@@ -234,10 +234,10 @@ mod tests {
                 PBKDF_PASSWORD.as_ptr(),
                 PBKDF_PASSWORD.len() as u32,
                 PBKDF_SALT.as_ptr(),
-                PBKDF_SALT.len() as crate::size_t,
+                PBKDF_SALT.len(),
                 LOOPS,
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
             );
             assert_eq!(ret, 0);
             assert_eq!(out, PBKDF_EXP);
@@ -262,10 +262,10 @@ mod tests {
                 PBKDF_PASSWORD.as_ptr(),
                 PBKDF_PASSWORD.len() as u32,
                 PBKDF_SALT.as_ptr(),
-                PBKDF_SALT.len() as crate::size_t,
+                PBKDF_SALT.len(),
                 LOOPS,
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
             );
             assert_eq!(ret, 0);
             assert_eq!(out, PBKDF_EXP);
@@ -290,10 +290,10 @@ mod tests {
                 PBKDF_PASSWORD.as_ptr(),
                 PBKDF_PASSWORD.len() as u32,
                 PBKDF_SALT.as_ptr(),
-                PBKDF_SALT.len() as crate::size_t,
+                PBKDF_SALT.len(),
                 LOOPS,
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
             );
             assert_eq!(ret, 0);
             assert_eq!(out, PBKDF_EXP);
@@ -318,10 +318,10 @@ mod tests {
                 PBKDF_PASSWORD.as_ptr(),
                 PBKDF_PASSWORD.len() as u32,
                 PBKDF_SALT.as_ptr(),
-                PBKDF_SALT.len() as crate::size_t,
+                PBKDF_SALT.len(),
                 LOOPS,
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
             );
             assert_eq!(ret, 0);
             assert_eq!(out, PBKDF_EXP);
@@ -346,10 +346,10 @@ mod tests {
                 PBKDF_PASSWORD.as_ptr(),
                 PBKDF_PASSWORD.len() as u32,
                 PBKDF_SALT.as_ptr(),
-                PBKDF_SALT.len() as crate::size_t,
+                PBKDF_SALT.len(),
                 LOOPS,
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
             );
             assert_eq!(ret, 0);
             assert_eq!(out, PBKDF_EXP);
@@ -381,10 +381,10 @@ mod tests {
                 PBKDF_PASSWORD.as_ptr(),
                 PBKDF_PASSWORD.len() as u32,
                 PBKDF_SALT.as_ptr(),
-                PBKDF_SALT.len() as crate::size_t,
+                PBKDF_SALT.len(),
                 LOOPS,
                 out.as_mut_ptr(),
-                out.len() as crate::size_t,
+                out.len(),
             );
             assert_eq!(ret, 0);
             assert_eq!(out, PBKDF_EXP);

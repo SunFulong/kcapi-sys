@@ -84,7 +84,7 @@ pub mod tests {
         outbuf[assocdata_offset..ct_offset].clone_from_slice(&assocdata);
         outbuf[ct_offset..tag_offset].clone_from_slice(&pt);
 
-        let mut ret: i64;
+        let mut ret: isize;
         unsafe {
             let mut handle =
                 Box::into_raw(Box::new(kcapi_handle { _unused: [0u8; 0] })) as *mut kcapi_handle;
@@ -99,7 +99,7 @@ pub mod tests {
                 .expect("Failed to convert i32 to i64");
             assert_eq!(ret, 0);
 
-            kcapi_aead_setassoclen(handle, assoclen as u64);
+            kcapi_aead_setassoclen(handle, assoclen);
 
             let mut newiv = &mut [0u8; 48] as *mut u8;
             let mut newivlen: u32 = 0;
@@ -115,9 +115,9 @@ pub mod tests {
             assert_eq!(ret, 0);
 
             let outbuflen =
-                kcapi_aead_outbuflen_enc(handle, pt.len() as u64, assoclen as u64, taglen as u64);
+                kcapi_aead_outbuflen_enc(handle, pt.len(), assoclen, taglen);
             let inbuflen =
-                kcapi_aead_inbuflen_enc(handle, pt.len() as u64, assoclen as u64, taglen as u64);
+                kcapi_aead_inbuflen_enc(handle, pt.len(), assoclen, taglen);
 
             ret = (kcapi_aead_setkey(handle, key.as_ptr(), key.len() as u32))
                 .try_into()
@@ -133,7 +133,7 @@ pub mod tests {
                 outbuflen,
                 KCAPI_ACCESS_HEURISTIC as i32,
             );
-            assert_eq!(ret, outbuf.len() as i64);
+            assert_eq!(ret, outbuf.len() as isize);
 
             ct.clone_from_slice(&outbuf[assocdata.len()..assocdata.len() + pt.len()]);
             tag.clone_from_slice(&outbuf[tag_offset..]);
@@ -179,7 +179,7 @@ pub mod tests {
         outbuf[ct_offset..tag_offset].clone_from_slice(&ct);
         outbuf[tag_offset..].clone_from_slice(&tag);
 
-        let mut ret: i64;
+        let mut ret: isize;
         unsafe {
             let mut handle =
                 Box::into_raw(Box::new(kcapi_handle { _unused: [0u8; 0] })) as *mut kcapi_handle;
@@ -194,7 +194,7 @@ pub mod tests {
                 .expect("Failed to convert i32 to i64");
             assert_eq!(ret, 0);
 
-            kcapi_aead_setassoclen(handle, assoclen as u64);
+            kcapi_aead_setassoclen(handle, assoclen);
 
             let mut newiv = &mut [0u8; 48] as *mut u8;
             let mut newivlen: u32 = 0;
@@ -210,9 +210,9 @@ pub mod tests {
             assert_eq!(ret, 0);
 
             let inbuflen =
-                kcapi_aead_inbuflen_dec(handle, ct.len() as u64, assoclen as u64, taglen as u64);
+                kcapi_aead_inbuflen_dec(handle, ct.len(), assoclen, taglen);
             let outbuflen =
-                kcapi_aead_outbuflen_dec(handle, ct.len() as u64, assoclen as u64, taglen as u64);
+                kcapi_aead_outbuflen_dec(handle, ct.len(), assoclen, taglen);
 
             ret = (kcapi_aead_setkey(handle, key.as_ptr(), key.len() as u32))
                 .try_into()
@@ -228,7 +228,7 @@ pub mod tests {
                 outbuflen,
                 KCAPI_ACCESS_HEURISTIC as i32,
             );
-            assert_eq!(ret, (outbuf.len() - assoclen) as i64);
+            assert_eq!(ret, (outbuf.len() - assoclen) as isize);
 
             pt.clone_from_slice(&outbuf[assocdata.len()..assocdata.len() + ct.len()]);
         }
